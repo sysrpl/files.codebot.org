@@ -6,17 +6,11 @@ public class BlobEntry
 {
 	private byte[] buffer;
 
-    public static long UnixTime(DateTime d)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return (long)(d - epoch).TotalMilliseconds;
-    }
-
 	public BlobEntry()
 	{
 		buffer = null;
 		Offset = 0;
-		Modified = UnixTime(DateTime.Now);
+		Modified = Tools.UnixTime(DateTime.Now);
 		Access = 0;
 	}
 
@@ -26,13 +20,8 @@ public class BlobEntry
 	public string Name { get; set; }
 	[JsonProperty("size")]
 	public long Size { get; set; }
-
 	[JsonProperty("type")]
-	public string Type
-	{
-		get => BasicHandler.MapContentType(Name);
-	}
-
+	public string Type => Tools.MapContentType(Name);
 	[JsonIgnore]
 	public string TempName { get => $".tmp-{Key}-{Name}"; }
 	[JsonIgnore]

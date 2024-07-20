@@ -50,12 +50,12 @@ public class HomePage : BlobUserPage
         User.Counter = (User.Counter + 1) % 10;
         if (User.Counter > 0)
             return;
-        var a = BlobEntry.UnixTime(DateTime.Now.AddDays(-1));
+        var a = Tools.UnixTime(DateTime.Now.AddDays(-1));
         var folder = User.Path("incomming");
         var files = Directory.GetFiles(folder, ".tmp-*");
         foreach (var file in files)
         {
-            var b = BlobEntry.UnixTime(File.GetCreationTime(file));
+            var b = Tools.UnixTime(File.GetCreationTime(file));
             if (b < a)
                 File.Delete(file);
         }
@@ -78,7 +78,7 @@ public class HomePage : BlobUserPage
             if (uploads.ContainsKey(key))
             {
                 var current = uploads[key];
-                current.Modified = BlobEntry.UnixTime(DateTime.Now);
+                current.Modified = Tools.UnixTime(DateTime.Now);
                 return current;
             }
             Recycle();
@@ -162,7 +162,7 @@ public class HomePage : BlobUserPage
     {
         if (User.IsAnonymous)
             return;
-        Write(MapContentType(Read("filename")));
+        Write(Tools.MapContentType(Read("filename")));
     }
 
     public void ActionList()
@@ -285,8 +285,8 @@ public class HomePage : BlobUserPage
                 ActionDelete();
                 break;
         }
-
     }
+
     string IncommingName(BlobEntry entry) => User.Path($"incomming/{entry.TempName}");
     string CompleteName(BlobEntry entry) => User.Path($"files/{entry.Name}");
 
