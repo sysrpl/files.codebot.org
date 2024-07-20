@@ -1,0 +1,289 @@
+#view.audio {
+    height: calc(100% - 50px);
+}
+
+#audio {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background: white;
+}
+
+#audio .logo {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 5px;
+    color: white;
+    background: darkorange;
+    pointer-events: none;
+}
+
+#audio .logo .fa:before {
+    position: relative;
+    font-size: 30px;
+    top: 3px;
+    left: -1px;
+}
+
+#audio .volume {
+    height: 100%;
+    float: right;
+    margin-left:  10px;
+    margin-right: 10px;
+}
+
+#audio .volume .track {
+    overflow: hidden;
+    float: right;
+    width: 100px;
+    height: 8px;
+    border: 1px solid silver;
+    border-radius: 4px;
+    margin-top: 21px;
+    cursor: pointer;
+}
+
+#audio .volume .value {
+    float: left;
+    width: 38px;
+    height: 100%;
+    background: #2f231a;
+    transition: background 0.2s; 
+}
+
+#audio .volume .track:hover .value {
+    float: left;
+    width: 38px;
+    height: 100%;
+    background: darkorange;
+    transition: background 0.2s; 
+}
+
+#audio .volume .fa {
+    float: right;
+    margin-left: 10px;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+}
+
+#audio .close {
+    position: absolute;
+    right:  30px;
+    top: -16px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 24px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+#audio .close:hover {
+    color: darkorange;
+    transition: color 0.2s;
+}
+
+#audio .close .fa:before {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#viewer {
+    overflow: visible;
+    max-width: 1000px;
+    max-height: 1000px;
+    border: 1px solid darkorange;
+    border-radius: 6px;
+    margin: 0;
+    padding: 0;
+}
+
+#viewer #downloader {
+    display: none;
+}
+
+#viewer .fa {
+    pointer-events: none;
+}
+
+#viewer .close {
+    position: absolute;
+    right: -5px;
+    top: -10px;
+    width: 26px;
+    height: 27px;
+    background: white;
+    border-radius: 14px;
+    text-align: center;
+    line-height: 28px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+#viewer .close:hover {
+    color: darkorange;
+    transition: color 0.2s;
+}
+
+#viewer .close .fa:before {
+    font-size: 24px;
+    line-height: 28px;
+    margin-left: 1px;
+}
+
+#viewer .caption {
+    display: none;
+}
+
+#viewer .content {
+    margin: 0;
+    padding: 10px;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 800px;
+    max-height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s, height 0.3s;
+}
+
+#viewer .content .summary {
+    position: absolute;
+    left: 0;
+    bottom: -36px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    height: 26px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+#viewer .content .summary.loading {
+    display: none;
+}
+
+#viewer .content a {
+    display: none;
+    float: left;
+    color: #176392;
+    margin-left: 10px;
+    line-height: 28px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#viewer .content a:hover {
+    text-decoration: underline;
+}
+
+#viewer .content .words {
+    float: left;
+    white-space: nowrap;
+    font-weight: 700;
+    margin-left: 10px;
+    line-height: 26px;
+}
+
+#viewer .content .extra {
+    float: left;
+    white-space: nowrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    line-height: 27px;
+    font-size: 14px;
+}
+
+#viewer .prior, #viewer .next {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width : 25px;
+    height: 50px;
+    top: 50%;
+    margin-top: -25px;
+    text-align: center;
+    line-height: 50px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+#viewer .prior:hover, #viewer .next:hover {
+    color: darkorange;
+    transition: color 0.2s;
+}
+
+#viewer .busy {
+    width: 80px;
+    height: 80px;
+    color: orange;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -40px;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 99;
+}
+
+#viewer .busy.loading {
+    opacity: 1;
+}
+
+#viewer .busy .fa:before {
+    line-height: 80px;
+}
+
+#viewer .prior {
+    left: -30px;
+}
+
+#viewer .next {
+    right: -30px;
+}
+
+#viewer .content span img {
+    max-width: 750px;
+    max-height: 500px;
+    display: inline-block;
+}
+
+#viewer .content span audio {
+    width: 640px;
+    display: inline-block;
+}
+
+#viewer .content span video {
+    display: inline-block;
+    max-width: 700px;
+    max-height: 700px;
+}
+
+#viewer .content span pre {
+    width: 750px;
+    height: 500px;
+    background: white;
+    color: black;
+    border: 1px solid dimgray;
+    padding: 4px;
+    overflow: auto;
+    display: inline-block;
+    font-family: monospace;
+}
+
+#viewer button {
+    display: none;
+}
+

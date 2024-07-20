@@ -1,0 +1,18 @@
+#splash {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    height: 200px;
+    background: url(/images/stores.jpg);
+    text-align: center;
+}
+
+#logo-icon, #logo-title {
+    float: left;
+    margin-right: 10px;
+    clear: none;
+    margin-bottom: 10px;
+}
+
+#login input {
+    width: 250px;
+}

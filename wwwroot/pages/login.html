@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="boot" content="/build/login.js">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles/index.css">
+    <link rel="stylesheet" type="text/css" href="/styles/login.css">
+    <link rel="stylesheet" type="text/css" href="/styles/dialog.css">
+    <title>Login</title>
+</head>
+
+<body file-system-type="{FileSystemType}">
+    <div id="view">
+        <div id="content">
+            <div id="page">
+                <img id="logo-icon" src="/images/clouds.png">
+                <h1 id="logo-title">Cloud File Manager</h1>
+                <div id="logo-subtitle">The free open source project for securely storing your files on the Internet</div>
+                <a id="account" href="javascript:signIn()" class="tooltip" data-tooltip="Click here to sign in">Sign In</a>
+                <p>This is the login page for Cloud File Manager, a free open source source project for cloud file storage.
+                    Anyone can freely reuse this project to create their own secure prersonal cloud file storage services.
+                    You can invite anyone to share access to files anywhere, using any device, for any purpose, be it to
+                    managing content for websites, backing up content to the cloud, or just for sharing files with friends
+                    over the Internet.</p>
+
+                <div id="splash"></div>
+
+                <p>Cloud File Manager is different than other cloud file storage services you may have already used. When compared
+                    to Dropbox it doesn't require software to be installed each device when you want to backup or share files.
+                    Also you don't need to keep files on your device after they've been copied to the cloud. When compared
+                    to Google Drive it allows for custom storage locations, such as to your own personal file server or any
+                    third party storage service such as Amazon Simple Storage Service or Google Cloud Storage. In any case,
+                    you get to choose how and where your cloud files are stored.</p>
+
+                <p>When using this project to store website content you can directly link to it without restrictions, for example
+                    at any place you might use <strong>&lt;audio&gt;</strong>, <strong>&lt;video&gt;</strong>, and
+                    <strong>&lt;img&gt;</strong> markup. Whereas with the free cloud storage services, directly linking to
+                    you files is both blocked and prohibited.</p>
+
+                <p>Features include multiple simultaneous uploads with cancel, pause and resume for broken connections. Files
+                    can be renamed, deleted, and shared publicly. Public files can be distributed either as direct links
+                    or as self contained media player pages.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div id="overlay">
+        <div class="dialog" id="messageBox">
+            <div class="caption">Information</div>
+            <div class="content">
+                <div class="message">A message.</div>
+            </div>
+            <button class="accept" type="button">OK</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+        <div class="dialog" id="login">
+            <div class="caption"><i class="fa fa-cloud-upload"></i>Sign In</div>
+            <div class="content">
+                <label for="name">User:</label>
+                <input type="text" id="name" name="name">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <button class="accept" type="button">Sign In</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="/build/boot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Codebot.Web\Codebot.Web.csproj" />
+  </ItemGroup>
+
+<ItemGroup>
+  <Content Remove="private\**" />
+  <Compile Remove="private\**" />
+  <EmbeddedResource Remove="private\**" />
+  <None Remove="private\**" />
+</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+</Project>

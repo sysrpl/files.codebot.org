@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="boot" content="/build/manager.js">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles/index.css">
+    <link rel="stylesheet" type="text/css" href="/styles/media.css">
+    <link rel="stylesheet" type="text/css" href="/styles/dialog.css">
+    <include src="/styles/mobile.css" target-platform="mobile"></include>
+    <title>File Manager</title>
+</head>
+
+<body file-system-type="{FileSystemType}">
+    <div id="view" class="xx-audio">
+        <div id="content">
+            <div id="page">
+                <input id="fileInput" type="file" multiple>
+                <input id="user" type="hidden" value="{User.Name}">
+                <img id="logo-icon" src="/images/clouds.png">
+                <h1 id="logo-title">Cloud File Manager</h1>
+                <div id="logo-subtitle">The free open source project for securely storing your files on the Internet</div>
+                <a id="admin" class="tooltip admin{User.IsAdmin}" href="javascript:adminTools()" data-tooltip="Click here to administrate"><i class="fa fa-cog"></i></a>
+                <a id="account" href="./?method=logout&redirect=true" class="tooltip" data-tooltip="Click here to sign out">Sign Out of {User.Name}</a>
+                <div id="splitBox">
+                    <div id="or">or</div>
+                    <div class="choice file">
+                        <div id="fileButton" class="tooltip" data-tooltip="Click this button to browse for files on your computer to upload"><i class="fa fa-folder-open fa-2x"></i>Select files to upload</div>
+                    </div>
+                    <div class="choice drop">
+                        <div id="fileDrop" class="tooltip" data-tooltip="Drop files in this area to upload files from your computer"><i class="fa fa-arrows fa-2x"></i>Drop files here to upload</div>
+                    </div>
+                </div>
+                <h2>Uploads</h2>
+                <div class="uploads grid header">
+                    <div>File</div>
+                    <div>Size</div>
+                    <div>Type</div>
+                    <div>Progress</div>
+                    <div>Speed</div>
+                </div>
+                <div class="uploads grid rows">
+                    <div class="row empty">
+                        <div>No uploads are in progress</div>
+                    </div>
+                </div>
+                <div id="search" class="tooltip" data-tooltip="Search the files below (F3)">
+                    <span>Search...</span>
+                    <i class="fa fa-search"></i>
+                    <input spellcheck="false" type="text">
+                </div>
+                <h2>Files</h2>
+                <div class="files grid header">
+                    <div id="row-name">File</div>
+                    <div id="row-size">Size</div>
+                    <div id="row-folder">Folder</div>
+                    <div id="row-modifed">Modified</div>
+                    <div id="row-access">Access</div>
+                </div>
+                <div class="files grid rows">
+                    <div class="row empty">
+                        <div>No files have been uploaded</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="overlay">
+        <div class="dialog" id="messageBox">
+            <div class="caption">Information</div>
+            <div class="content">
+                <div class="message">A message.</div>
+            </div>
+            <button class="accept" type="button">OK</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+        <div class="dialog" id="rename">
+            <div class="caption"></div>
+            <div class="content">
+                <input spellcheck="false" type="text">
+                <i id="renameAccept" class="tooltip fa fa-check-circle" data-tooltip="Submit rename"></i>
+                <i id="renameCancel" class="tooltip fa fa-times-circle" data-tooltip="Cancel rename"></i>
+            </div>
+            <button class="accept" type="button">OK</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+        <div class="dialog" id="share">
+            <div class="caption">Share</div>
+            <div class="content">
+                <div class="message"></div>
+                <div class="block">
+                    <label for="shareUrl">Link:</label>
+                    <input readonly type="text" id="shareUrl" class="tooltip" data-tooltip="This is the location of the file">
+                    <i id="shareUrlCopy" class="tooltip fa fa-clipboard" data-tooltip="Copy to the clipboard"></i>
+                    <label for="viewUrl">Viewer:</label>
+                    <input readonly type="text" id="viewUrl" class="tooltip" data-tooltip="This is a media player for the file">
+                    <i id="viewUrlCopy" class="tooltip fa fa-clipboard" data-tooltip="Copy to the clipboard"></i>
+                </div>
+                <div id="private">
+                    <i class="fa fa-check-circle"></i><i class="fa fa-circle-o"></i>
+                    <div>private</div>
+                    <span>This file can only be accessed by you</span>
+                </div>
+                <div id="public">
+                    <i class="fa fa-check-circle"></i><i class="fa fa-circle-o"></i>
+                    <div>public</div>
+                    <span>This file can be read by anyone if they know the url</span>
+                </div>
+            </div>
+            <button class="accept" type="button">OK</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+        <div class="dialog" id="viewer">
+            <a id="downloader"></a>
+            <div class="close"><i class="fa fa-times-circle"></i></div>
+            <div class="caption"></div>
+            <div class="content">
+                <div class="busy"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+                <div class="prior tooltip" data-tooltip="Prior (Left)"><i class="fa fa-chevron-left"></i></div>
+                <div class="next tooltip" data-tooltip="Next (Right)"><i class="fa fa-chevron-right"></i></div>
+                <span></span>
+                <div class="summary">
+                    <a id="downloadSingle" href="javascript:downloadSingle()">Download</a>
+                    <a id="downloadAll" href="javascript:downloadAll()">Download All</a>
+                    <div class="words"></div>
+                    <div class="extra"></div>
+                </div>
+            </div>
+            <button class="accept" type="button">OK</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+        <div class="dialog" id="adminTools">
+            <div class="caption">New User</div>
+            <div class="content">
+                <form action="XXX" method="post" autocomplete="off">
+                    <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+                    <input style="display:none" type="text" name="fakeusernameremembered" />
+                    <input style="display:none" type="password" name="fakepasswordremembered" />
+                    <div class="message">Create a new user account.</div>
+                    <label for="newLogin">User:</label>
+                    <input type="text" name="newLogin" id="newLogin" autocomplete="off" class="tooltip" data-tooltip="The name of the new user you want to create">
+                    <label for="newKey">Password:</label>
+                    <input type="password" name="newKey" id="newKey" autocomplete="new-password" class="tooltip" data-tooltip="The password for the new user">
+                    <label for="newRepeatKey">Repeat Password:</label>
+                    <input type="password" name="newRepeatKey" id="newRepeatKey" autocomplete="new-password" class="tooltip" data-tooltip="The repeated password for the new user">
+                </form>
+            </div>
+            <button class="accept" type="button">Create</button>
+            <button class="cancel" type="button">Cancel</button>
+        </div>
+    </div>
+    <div id="audio">
+        <div class="logo"><i class="fa fa-music"></i></div>
+        <div class="seek">
+            <div class="track">
+                <div class="value"></div>
+            </div>
+        </div>
+        <div class="volume">
+            <i class="fa fa-volume-up" onclick="audioMute()"></i>
+            <div class="track">
+                <div class="value"></div>
+            </div>
+        </div>
+        <div class="close" onclick="audioClose()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <script type="text/javascript" src="/build/boot.js"></script>
+</body>
+
+</html>
