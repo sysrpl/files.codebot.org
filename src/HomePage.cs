@@ -19,30 +19,38 @@ public class HomePage : BlobUserPage
                 Include("pages/login.html", true);
             return;
         }
-        var items = path.Split('/');
-        if (items.Length != 4)
-            return;
-        var userName = items[1];
-        var folder = items[2];
-        var fileName = items[3];
-        var security = App.Security as BlobUserSecurity;
-        if (!security.FindUser(userName, out var user))
-            return;
-        var list = user.Files;
-        BlobEntry file;
-        lock (list)
-            file = list.FirstOrDefault(f => f.Name == fileName);
-        if (file == null)
-            return;
-        if (file.Type.Split('/')[0] + "s" != folder)
-            return;
-        if (User.Name == userName || file.Access == 1)
+        var found = false;
+        try
         {
-            fileName = user.Path($"files/{fileName}");
-            AuditPathTransmit(fileName, Request.Query.ContainsKey("download"));
+            var items = path.Split('/');
+            if (items.Length != 4)
+                return;
+            var userName = items[1];
+            var folder = items[2];
+            var fileName = items[3];
+            var security = App.Security as BlobUserSecurity;
+            if (!security.FindUser(userName, out var user))
+                return;
+            var list = user.Files;
+            BlobEntry file;
+            lock (list)
+                file = list.FirstOrDefault(f => f.Name == fileName);
+            if (file == null)
+                return;
+            if (file.Type.Split('/')[0] + "s" != folder)
+                return;
+            if (User.Name == userName || file.Access == 1)
+            {
+                found = true;
+                fileName = user.Path($"files/{fileName}");
+                AuditPathTransmit(fileName, Request.Query.ContainsKey("download"));
+            }
         }
-        else
-            Response.StatusCode = (int)HttpStatusCode.NotFound;
+        finally
+        {
+            if (!found)
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+        }
     }
 
     void Recycle()
